@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FiGrid, FiMail, FiMapPin, FiHeart } from 'react-icons/fi';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FiMail } from 'react-icons/fi';
 import './Footer.css';
 
 const Footer = () => {
@@ -11,20 +10,13 @@ const Footer = () => {
           {/* Brand */}
           <div className="footer-brand">
             <Link to="/" className="footer-logo">
-              <div className="logo-icon">
-                <FiGrid />
-              </div>
-              <span className="logo-text">OldMart</span>
+              <img src="/logo.png" alt="TradeHub" className="logo-img" />
+              <span className="logo-text">TradeHub</span>
             </Link>
             <p className="footer-description">
-              Your trusted marketplace for buying and selling pre-owned items. 
-              Find great deals or give your old items a new life.
+              Your trusted hub for buying and selling pre-owned items. 
+              Trade smarter — find great deals or give your items a new home.
             </p>
-            <div className="footer-socials">
-              <a href="#" className="social-link" aria-label="GitHub"><FaGithub /></a>
-              <a href="#" className="social-link" aria-label="LinkedIn"><FaLinkedin /></a>
-              <a href="#" className="social-link" aria-label="Twitter"><FaTwitter /></a>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -48,19 +40,28 @@ const Footer = () => {
           {/* Contact */}
           <div className="footer-section">
             <h4 className="footer-title">Contact</h4>
+            <p className="footer-description" style={{ marginBottom: '0.5rem', fontSize: '0.8rem' }}>Contact the developers directly.</p>
             <div className="footer-contact">
               <FiMail />
-              <span>support@oldmart.com</span>
+              <span>manishmanish5006@gmail.com</span>
             </div>
             <div className="footer-contact">
-              <FiMapPin />
-              <span>India</span>
+              <FiMail />
+              <span>thanish914@gmail.com</span>
+            </div>
+            <div className="footer-contact">
+              <FiMail />
+              <span>shreedhyanvg7@gmail.com</span>
+            </div>
+            <div className="footer-contact">
+              <FiMail />
+              <span>tanzilsheiks100@gmail.com</span>
             </div>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} OldMart. Made with <FiHeart className="heart-icon" /> for second chances.</p>
+          <p>© {new Date().getFullYear()} TradeHub. All rights reserved.</p>
         </div>
       </div>
     </footer>

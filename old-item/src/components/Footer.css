@@ -25,15 +25,11 @@
   color: var(--text-primary) !important;
 }
 
-.footer-logo .logo-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.footer-logo .logo-img {
   width: 2rem;
   height: 2rem;
-  background: var(--gradient-primary);
   border-radius: var(--radius-sm);
-  color: white;
+  object-fit: contain;
 }
 
 .footer-logo .logo-text {

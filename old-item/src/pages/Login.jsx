@@ -38,7 +38,7 @@ const Login = () => {
         <div className="auth-card glass-card">
           <div className="auth-header">
             <h1 className="auth-title">Welcome <span className="gradient-text">Back</span></h1>
-            <p className="auth-subtitle">Sign in to continue to OldMart</p>
+            <p className="auth-subtitle">Sign in to continue to TradeHub</p>
           </div>
 
           <form onSubmit={handleSubmit} className="auth-form" id="login-form">

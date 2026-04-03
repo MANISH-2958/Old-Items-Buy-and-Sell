@@ -30,10 +30,8 @@ const Navbar = () => {
       <div className="container navbar-container">
         {/* Logo */}
         <Link to="/" className="navbar-logo" id="navbar-logo">
-          <div className="logo-icon">
-            <FiGrid />
-          </div>
-          <span className="logo-text">OldMart</span>
+          <img src="/logo.png" alt="TradeHub" className="logo-img" />
+          <span className="logo-text">TradeHub</span>
         </Link>
 
         {/* Search Bar - Desktop */}
@@ -63,7 +61,7 @@ const Navbar = () => {
                 <FiPlusCircle /> Sell Item
               </Link>
               <Link to="/dashboard" className="nav-link" id="nav-dashboard">
-                <FiUser /> {user?.name?.split(' ')[0]}
+                <FiUser /> {user?.name?.split(' ')[0]} <span style={{opacity: 0.7, fontSize: '0.9em', marginLeft: '4px'}}>({user?.email})</span>
               </Link>
               <button onClick={handleLogout} className="nav-link logout-btn" id="nav-logout-btn">
                 <FiLogOut /> Logout
@@ -117,7 +115,7 @@ const Navbar = () => {
                 <FiPlusCircle /> Sell Item
               </Link>
               <Link to="/dashboard" className="mobile-link" onClick={() => setMenuOpen(false)}>
-                <FiUser /> Dashboard
+                <FiUser /> {user?.name?.split(' ')[0]} <span style={{opacity: 0.7, fontSize: '0.9em'}}>({user?.email})</span>
               </Link>
               <button onClick={handleLogout} className="mobile-link logout-btn">
                 <FiLogOut /> Logout
