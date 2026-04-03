@@ -1,0 +1,11 @@
+.wishlist-page {
+  padding-bottom: 4rem;
+}
+
+.no-items {
+  text-align: center;
+  padding: 3rem;
+  border-radius: var(--border-radius);
+  max-width: 600px;
+  margin: 0 auto;
+}

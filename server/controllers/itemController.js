@@ -84,7 +84,7 @@ const getItems = async (req, res) => {
 
 // @desc    Get single item by ID
 // @route   GET /api/items/:id
-// @access  Public
+
 const getItem = async (req, res) => {
   try {
     const item = await Item.findById(req.params.id)
@@ -94,7 +94,12 @@ const getItem = async (req, res) => {
       return res.status(404).json({ message: 'Item not found' });
     }
 
-    res.json(item);
+    const itemData = item.toObject();
+    if (!req.user && itemData.seller) {
+      delete itemData.seller.phone;
+    }
+
+    res.json(itemData);
   } catch (error) {
     console.error('Get item error:', error);
     if (error.kind === 'ObjectId') {
@@ -106,7 +111,7 @@ const getItem = async (req, res) => {
 
 // @desc    Create a new item
 // @route   POST /api/items
-// @access  Private
+
 const createItem = async (req, res) => {
   try {
     const { title, description, price, currency, category, condition, location } = req.body;
@@ -142,7 +147,7 @@ const createItem = async (req, res) => {
 
 // @desc    Update an item
 // @route   PUT /api/items/:id
-// @access  Private (owner only)
+
 const updateItem = async (req, res) => {
   try {
     let item = await Item.findById(req.params.id);
@@ -203,7 +208,7 @@ const updateItem = async (req, res) => {
 
 // @desc    Delete an item
 // @route   DELETE /api/items/:id
-// @access  Private (owner only)
+
 const deleteItem = async (req, res) => {
   try {
     const item = await Item.findById(req.params.id);
@@ -236,7 +241,7 @@ const deleteItem = async (req, res) => {
 
 // @desc    Get items by user
 // @route   GET /api/items/user/:userId
-// @access  Public
+
 const getUserItems = async (req, res) => {
   try {
     const items = await Item.find({ seller: req.params.userId })

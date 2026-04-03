@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { FiMapPin, FiCalendar, FiUser, FiMail, FiPhone, FiArrowLeft, FiEdit, FiTrash2, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiMapPin, FiCalendar, FiUser, FiMail, FiPhone, FiArrowLeft, FiEdit, FiTrash2, FiChevronLeft, FiChevronRight, FiHeart, FiMessageSquare } from 'react-icons/fi';
 import API from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import Loader from '../components/Loader';
@@ -24,6 +24,10 @@ const ItemDetail = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [deleting, setDeleting] = useState(false);
   const [showEmail, setShowEmail] = useState(false);
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [showMessageForm, setShowMessageForm] = useState(false);
+  const [messageText, setMessageText] = useState('');
+  const [sendingMessage, setSendingMessage] = useState(false);
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -38,8 +42,20 @@ const ItemDetail = () => {
         setLoading(false);
       }
     };
+    
+    const checkWishlist = async () => {
+      if (!user) return;
+      try {
+        const { data } = await API.get(`/wishlist/${id}`);
+        setIsWishlisted(data.isWishlisted);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     fetchItem();
-  }, [id]);
+    checkWishlist();
+  }, [id, user]);
 
   const handleDelete = async () => {
     if (!window.confirm('Are you sure you want to delete this item?')) return;
@@ -62,6 +78,45 @@ const ItemDetail = () => {
       toast.success(item.isSold ? 'Marked as available' : 'Marked as sold');
     } catch (error) {
       toast.error('Failed to update item');
+    }
+  };
+
+  const handleToggleWishlist = async () => {
+    if (!user) {
+      toast.error('Please login to wishlist items');
+      navigate('/login');
+      return;
+    }
+    try {
+      const { data } = await API.post(`/wishlist/${id}`);
+      setIsWishlisted(data.action === 'added');
+      toast.success(data.message);
+    } catch (error) {
+      toast.error('Failed to update wishlist');
+    }
+  };
+
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!user) {
+      toast.error('Please login to send messages');
+      navigate('/login');
+      return;
+    }
+    setSendingMessage(true);
+    try {
+      await API.post('/messages', {
+        receiverId: item.seller._id,
+        itemId: item._id,
+        content: messageText
+      });
+      toast.success('Message sent! Check your inbox.');
+      setShowMessageForm(false);
+      setMessageText('');
+    } catch (error) {
+      toast.error('Failed to send message');
+    } finally {
+      setSendingMessage(false);
     }
   };
 
@@ -129,11 +184,21 @@ const ItemDetail = () => {
 
           {/* Item Info */}
           <div className="item-info">
-            <div className="item-info-header">
-              <span className="item-category-tag">{item.category}</span>
-              <span className={`badge ${conditionBadgeClass[item.condition]}`}>
-                {item.condition}
-              </span>
+            <div className="item-info-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <span className="item-category-tag">{item.category}</span>
+                <span className={`badge ${conditionBadgeClass[item.condition]}`}>
+                  {item.condition}
+                </span>
+              </div>
+              <button 
+                className={`btn-wishlist ${isWishlisted ? 'active' : ''}`} 
+                onClick={handleToggleWishlist}
+                title={isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.5rem', color: isWishlisted ? 'var(--primary-accent)' : 'var(--text-secondary)', transition: 'color 0.2s', display: 'flex', alignItems: 'center' }}
+              >
+                <FiHeart fill={isWishlisted ? 'currentColor' : 'none'} />
+              </button>
             </div>
 
             <h1 className="item-title">{item.title}</h1>
@@ -195,19 +260,49 @@ const ItemDetail = () => {
                   {sellerJoined && <div className="seller-joined">Member since {sellerJoined}</div>}
                 </div>
               </div>
-              {item.seller?.email && (
-                <button 
-                  className="btn btn-primary seller-contact-btn" 
-                  id="contact-seller-btn"
-                  onClick={() => setShowEmail(!showEmail)}
-                >
-                  <FiMail /> {showEmail ? item.seller.email : 'Contact Seller'}
-                </button>
+              {/* Owner and User Actions */}
+              {!isOwner && (
+                showMessageForm ? (
+                  <form onSubmit={handleSendMessage} className="contact-seller-form" style={{ marginTop: '1rem' }}>
+                    <textarea 
+                      value={messageText}
+                      onChange={(e) => setMessageText(e.target.value)}
+                      placeholder="Hi, I'm interested..."
+                      required
+                      className="form-input"
+                      rows="3"
+                      style={{ resize: 'none' }}
+                    ></textarea>
+                    <div className="form-actions" style={{ display: 'flex', gap: '10px', marginTop: '0.5rem' }}>
+                      <button type="submit" className="btn btn-primary" disabled={sendingMessage}>
+                        {sendingMessage ? 'Sending...' : 'Send'}
+                      </button>
+                      <button type="button" className="btn btn-secondary" onClick={() => setShowMessageForm(false)} disabled={sendingMessage}>
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <button 
+                    className="btn btn-primary seller-contact-btn" 
+                    id="contact-seller-btn"
+                    onClick={() => {
+                        if (!user) {
+                            toast.error('Please login to contact seller');
+                            navigate('/login');
+                        } else {
+                            setShowMessageForm(true);
+                        }
+                    }}
+                  >
+                    <FiMessageSquare /> Contact Seller
+                  </button>
+                )
               )}
-              {item.seller?.phone && (
-                <a href={`tel:${item.seller.phone}`} className="btn btn-secondary seller-contact-btn">
+              {user && item.seller?.phone && (
+                <div className="btn btn-secondary seller-contact-btn" style={{ cursor: 'default', pointerEvents: 'none' }}>
                   <FiPhone /> {item.seller.phone}
-                </a>
+                </div>
               )}
             </div>
           </div>

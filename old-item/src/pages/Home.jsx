@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiZap } from 'react-icons/fi';
+import { FiArrowRight, FiZap, FiSearch, FiMessageCircle, FiCheckCircle, FiShield, FiSmile, FiStar } from 'react-icons/fi';
 import {
   FaLaptop, FaCouch, FaTshirt, FaBook, FaCar, FaFootballBall, FaSeedling, FaEllipsisH
 } from 'react-icons/fa';
@@ -56,6 +56,10 @@ const Home = () => {
             <h1 className="hero-title">
               Your Hub for <span className="gradient-text">Smart Trades</span>
             </h1>
+            <div style={{ margin: '2.5rem 0', position: 'relative', display: 'inline-block' }}>
+              <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle, rgba(245,166,35,0.2) 0%, transparent 70%)', filter: 'blur(20px)', zIndex: 0 }}></div>
+              <img src="/logo.png" alt="TradeHub Logo" style={{ height: '260px', objectFit: 'contain', filter: 'drop-shadow(0 0 25px rgba(245, 166, 35, 0.5)) drop-shadow(0 0 5px rgba(245, 166, 35, 0.8))', position: 'relative', zIndex: 1, borderRadius: '2rem' }} className="hero-logo" />
+            </div>
             <p className="hero-subtitle">
               Discover amazing deals on pre-owned electronics, furniture, clothing, and more.
               Trade smarter — buy what you need, sell what you don't.
@@ -147,6 +151,67 @@ const Home = () => {
           )}
         </div>
       </section>
+
+      {/* How It Works */}
+      <section className="section" id="how-it-works-section" style={{ background: 'var(--bg-secondary)' }}>
+        <div className="container">
+          <div className="section-header" style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <h2 className="section-title">How It <span className="gradient-text">Works</span></h2>
+            <p className="section-subtitle">Your journey to smart trades in three simple steps</p>
+          </div>
+          <div className="how-it-works-grid">
+            <div className="step-card">
+              <div className="step-number">1</div>
+              <div className="step-icon-wrapper"><FiSearch /></div>
+              <h3>List & Discover</h3>
+              <p>Find the perfect item from thousands of listings, or easily snap a photo to list your own pre-owned goods.</p>
+            </div>
+            <div className="step-connector"></div>
+            <div className="step-card">
+              <div className="step-number">2</div>
+              <div className="step-icon-wrapper"><FiMessageCircle /></div>
+              <h3>Connect & Negotiate</h3>
+              <p>Use our trusted platform to contact sellers seamlessly. Ask questions, negotiate terms, and agree on a deal.</p>
+            </div>
+            <div className="step-connector"></div>
+            <div className="step-card">
+              <div className="step-number">3</div>
+              <div className="step-icon-wrapper"><FiCheckCircle /></div>
+              <h3>Trade & Enjoy</h3>
+              <p>Complete the transaction securely. Give your pre-owned items a new home or enjoy your amazing finds!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="section" id="features-section">
+        <div className="container">
+          <div className="section-header" style={{ textAlign: 'center' }}>
+            <h2 className="section-title">Why Choose <span className="gradient-text">TradeHub</span></h2>
+            <p className="section-subtitle">The most reliable platform for trading pre-owned items</p>
+          </div>
+          <div className="features-grid">
+            <div className="feature-card glass-card">
+              <div className="feature-icon"><FiShield /></div>
+              <h4>Verified & Secure</h4>
+              <p>Every transaction and user profile is carefully monitored to ensure a safe, scam-free environment for everyone.</p>
+            </div>
+            <div className="feature-card glass-card">
+              <div className="feature-icon"><FaSeedling /></div>
+              <h4>Eco-Friendly Choice</h4>
+              <p>By buying and selling pre-owned items, you are actively reducing waste and contributing to a sustainable future.</p>
+            </div>
+            <div className="feature-card glass-card">
+              <div className="feature-icon"><FiSmile /></div>
+              <h4>Seamless Experience</h4>
+              <p>Our intuitive UI makes it faster and more enjoyable than ever to browse, discover, and list your goods.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
 
       {/* CTA */}
       <section className="cta-section" id="cta-section">

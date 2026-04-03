@@ -9,7 +9,10 @@ const Footer = () => {
         <div className="footer-grid">
           {/* Brand */}
           <div className="footer-brand">
-            <Link to="/" className="footer-logo">
+            <Link to="/about" style={{ textDecoration: 'none' }}>
+              <h4 className="footer-title">About Us</h4>
+            </Link>
+            <Link to="/" className="footer-logo" style={{ marginBottom: '1rem', display: 'flex' }}>
               <img src="/logo.png" alt="TradeHub" className="logo-img" />
               <span className="logo-text">TradeHub</span>
             </Link>
@@ -21,7 +24,9 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="footer-section">
-            <h4 className="footer-title">Quick Links</h4>
+            <Link to="/quick-links" style={{ textDecoration: 'none' }}>
+              <h4 className="footer-title">Quick Links</h4>
+            </Link>
             <Link to="/browse" className="footer-link">Browse Items</Link>
             <Link to="/sell" className="footer-link">Sell an Item</Link>
             <Link to="/browse?category=Electronics" className="footer-link">Electronics</Link>
@@ -30,7 +35,9 @@ const Footer = () => {
 
           {/* Categories */}
           <div className="footer-section">
-            <h4 className="footer-title">Categories</h4>
+            <Link to="/categories" style={{ textDecoration: 'none' }}>
+              <h4 className="footer-title">Categories</h4>
+            </Link>
             <Link to="/browse?category=Clothing" className="footer-link">Clothing</Link>
             <Link to="/browse?category=Books" className="footer-link">Books</Link>
             <Link to="/browse?category=Vehicles" className="footer-link">Vehicles</Link>
@@ -39,24 +46,11 @@ const Footer = () => {
 
           {/* Contact */}
           <div className="footer-section">
-            <h4 className="footer-title">Contact</h4>
-            <p className="footer-description" style={{ marginBottom: '0.5rem', fontSize: '0.8rem' }}>Contact the developers directly.</p>
-            <div className="footer-contact">
-              <FiMail />
-              <span>manishmanish5006@gmail.com</span>
-            </div>
-            <div className="footer-contact">
-              <FiMail />
-              <span>thanish914@gmail.com</span>
-            </div>
-            <div className="footer-contact">
-              <FiMail />
-              <span>shreedhyanvg7@gmail.com</span>
-            </div>
-            <div className="footer-contact">
-              <FiMail />
-              <span>tanzilsheiks100@gmail.com</span>
-            </div>
+            <Link to="/contact" style={{ textDecoration: 'none' }}>
+              <h4 className="footer-title">Contact Us</h4>
+            </Link>
+            <p className="footer-description" style={{ marginBottom: '0.5rem', fontSize: '0.8rem' }}>Contact the developers directly. Click below to view contact details.</p>
+            <Link to="/contact" className="footer-link" style={{ marginTop: '0.5rem', display: 'inline-block', fontStyle: 'italic' }}>View Emails &rarr;</Link>
           </div>
         </div>
 

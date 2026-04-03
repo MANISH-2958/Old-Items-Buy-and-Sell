@@ -12,6 +12,12 @@ import Register from './pages/Register';
 import SellItem from './pages/SellItem';
 import EditItem from './pages/EditItem';
 import Dashboard from './pages/Dashboard';
+import AboutUs from './pages/AboutUs';
+import CategoriesRoute from './pages/CategoriesRoute';
+import QuickLinks from './pages/QuickLinks';
+import ContactUs from './pages/ContactUs';
+import Wishlist from './pages/Wishlist';
+import Messages from './pages/Messages';
 import './index.css';
 
 function App() {
@@ -22,6 +28,10 @@ function App() {
         <main style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/categories" element={<CategoriesRoute />} />
+            <Route path="/quick-links" element={<QuickLinks />} />
+            <Route path="/contact" element={<ContactUs />} />
             <Route path="/browse" element={<Browse />} />
             <Route path="/item/:id" element={<ItemDetail />} />
             <Route path="/login" element={<Login />} />
@@ -47,6 +57,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/wishlist"
+              element={
+                <ProtectedRoute>
+                  <Wishlist />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/messages"
+              element={
+                <ProtectedRoute>
+                  <Messages />
                 </ProtectedRoute>
               }
             />

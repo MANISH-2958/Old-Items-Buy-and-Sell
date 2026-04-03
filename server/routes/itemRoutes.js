@@ -8,12 +8,12 @@ const {
   deleteItem,
   getUserItems
 } = require('../controllers/itemController');
-const { protect } = require('../middleware/auth');
+const { protect, optionalAuth } = require('../middleware/auth');
 const upload = require('../middleware/upload');
 
 // Public routes
 router.get('/', getItems);
-router.get('/:id', getItem);
+router.get('/:id', optionalAuth, getItem);
 router.get('/user/:userId', getUserItems);
 
 // Protected routes

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FiSearch, FiMenu, FiX, FiPlusCircle, FiUser, FiLogOut, FiGrid, FiHome } from 'react-icons/fi';
+import { FiSearch, FiMenu, FiX, FiPlusCircle, FiUser, FiLogOut, FiGrid, FiHome, FiHeart, FiMessageSquare } from 'react-icons/fi';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -60,6 +60,12 @@ const Navbar = () => {
               <Link to="/sell" className="btn btn-primary btn-sm" id="nav-sell-btn">
                 <FiPlusCircle /> Sell Item
               </Link>
+              <Link to="/wishlist" className="nav-link" id="nav-wishlist">
+                <FiHeart /> Wishlist
+              </Link>
+              <Link to="/messages" className="nav-link" id="nav-messages">
+                <FiMessageSquare /> Messages
+              </Link>
               <Link to="/dashboard" className="nav-link" id="nav-dashboard">
                 <FiUser /> {user?.name?.split(' ')[0]} <span style={{opacity: 0.7, fontSize: '0.9em', marginLeft: '4px'}}>({user?.email})</span>
               </Link>
@@ -113,6 +119,12 @@ const Navbar = () => {
             <>
               <Link to="/sell" className="mobile-link" onClick={() => setMenuOpen(false)}>
                 <FiPlusCircle /> Sell Item
+              </Link>
+              <Link to="/wishlist" className="mobile-link" onClick={() => setMenuOpen(false)}>
+                <FiHeart /> Wishlist
+              </Link>
+              <Link to="/messages" className="mobile-link" onClick={() => setMenuOpen(false)}>
+                <FiMessageSquare /> Messages
               </Link>
               <Link to="/dashboard" className="mobile-link" onClick={() => setMenuOpen(false)}>
                 <FiUser /> {user?.name?.split(' ')[0]} <span style={{opacity: 0.7, fontSize: '0.9em'}}>({user?.email})</span>
