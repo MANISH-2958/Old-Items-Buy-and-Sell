@@ -17,7 +17,7 @@ const Footer = () => {
               <span className="logo-text">TradeHub</span>
             </Link>
             <p className="footer-description">
-              Your trusted hub for buying and selling pre-owned items. 
+              Your trusted hub for buying and selling pre-owned items.
               Trade smarter — find great deals or give your items a new home.
             </p>
           </div>
