@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FiMapPin } from 'react-icons/fi';
 import './ItemCard.css';
+import { API_BASE_URL } from '../api/axios';
 
 const conditionBadgeClass = {
   'New': 'badge-new',
@@ -11,9 +12,11 @@ const conditionBadgeClass = {
 };
 
 const ItemCard = ({ item }) => {
-  const imageUrl = item.images && item.images.length > 0
-    ? (item.images[0].startsWith('http') ? item.images[0] : `http://localhost:5000${item.images[0]}`)
-    : 'https://via.placeholder.com/300x200?text=No+Image';
+const imageUrl = item.images && item.images.length > 0
+  ? (item.images[0].startsWith('http')
+      ? item.images[0]
+      : `${API_BASE_URL || ''}${item.images[0]}`)
+  : 'https://via.placeholder.com/300x200?text=No+Image';
 
   return (
     <Link to={`/item/${item._id}`} className="item-card glass-card" id={`item-card-${item._id}`}>
