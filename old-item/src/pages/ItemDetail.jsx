@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { FiMapPin, FiCalendar, FiUser, FiMail, FiPhone, FiArrowLeft, FiEdit, FiTrash2, FiChevronLeft, FiChevronRight, FiHeart, FiMessageSquare } from 'react-icons/fi';
-import API from '../api/axios';
+import API, { API_BASE_URL } from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import Loader from '../components/Loader';
 import toast from 'react-hot-toast';
@@ -123,9 +123,11 @@ const ItemDetail = () => {
   if (loading) return <Loader fullPage />;
   if (!item) return null;
 
-  const images = item.images && item.images.length > 0
-    ? item.images.map(img => img.startsWith('http') ? img : `http://localhost:5000${img}`)
-    : ['https://via.placeholder.com/600x400?text=No+Image'];
+const images = item.images && item.images.length > 0
+  ? item.images.map(img =>
+      img.startsWith('http') ? img : `${API_BASE_URL || ''}${img}`
+    )
+  : ['https://via.placeholder.com/600x400?text=No+Image'];
 
   const isOwner = user && item.seller && user._id === item.seller._id;
   const sellerJoined = item.seller?.createdAt
